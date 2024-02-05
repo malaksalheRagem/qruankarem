@@ -51,6 +51,7 @@ class DatabaseHelper{
   Future<int> createUser(Users usr)async{
     final Database db = await initDB();
     return db.insert("users", usr.toMap());
+
   }
 
 
@@ -58,6 +59,11 @@ class DatabaseHelper{
   Future<Users?> getUser(String usrName)async{
     final Database db = await initDB();
     var res = await db.query("users",where: "usrName = ?", whereArgs: [usrName]);
+    Users user=Users.fromMap(res.first);
+    print('///////////////////////////////////////////////////');
+    print('The User You Add Is : '+user.fullName!+'Email is : '+user.email!);
+    print('///////////////////////////////////////////////////');
+
     return res.isNotEmpty? Users.fromMap(res.first):null;
   }
 
